@@ -2,22 +2,25 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Gửi Quỳnh Như</title>
     <style>
         /* --- PHẦN TRANG TRÍ (CSS) --- */
-        body {
+       body {
             background-color: #ffe6e6;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+    
+    /* FIX LỖI SAFARI IOS: */
+            min-height: 100vh;       /* Cho trình duyệt cũ */
+            height: 100dvh;          /* Dynamic Viewport Height - Tự co giãn theo thanh địa chỉ */
+    
             margin: 0;
-            overflow: hidden;
+            overflow: hidden;        /* Chặn cuộn trang */
             text-align: center;
-        }
-
+            }    
         .container {
             background: white;
             padding: 30px;
@@ -161,6 +164,7 @@
 
 </body>
 </html>
+
 
 
 
