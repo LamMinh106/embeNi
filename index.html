@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Quỳnh Như</title>
+    <style>
+        /* --- PHẦN TRANG TRÍ (CSS) --- */
+        body {
+            background-color: #ffe6e6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+            max-width: 90%;
+            width: 400px;
+            position: relative;
+        }
+
+        /* Ẩn hiện các màn hình */
+        .screen { display: none; }
+        .active { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, h2 { color: #d63384; margin-bottom: 20px; }
+        p { font-size: 18px; color: #333; margin-bottom: 20px; }
+        
+        button {
+            background-color: #ff4d6d; color: white; border: none;
+            padding: 12px 24px; border-radius: 25px; font-size: 16px;
+            cursor: pointer; width: 100%; margin-top: 10px;
+        }
+        button:hover { background-color: #d63384; transform: scale(1.05); }
+
+        input[type="text"] {
+            padding: 10px; border: 2px solid #ffccd5;
+            border-radius: 10px; width: 80%; text-align: center; margin-bottom: 10px;
+        }
+        
+        /* Style cho ảnh bất ngờ */
+        .img-bat-ngo {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+        }
+
+        .final-msg {
+            font-size: 22px; font-weight: bold; color: #d63384; line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="screen1" class="screen active">
+            <h1>Hello em bé </h1>
+            <p>Anh có một bất ngờ nhỏ dành cho em nè! ❤️</p>
+            <button onclick="chuyenMan(2)">Trả lời câu hỏi đúng có quà nè !! </button>
+        </div>
+
+        <div id="screen2" class="screen">
+            <h2>Câu hỏi 1</h2>
+            <p>Mình quen nhau ngày nào nhỉ?</p>
+            <input type="text" id="ngay" placeholder="Ngày (ví dụ: 14)">
+            <input type="text" id="thang" placeholder="Tháng (ví dụ: 2)">
+            <input type="text" id="nam" placeholder="Năm (ví dụ: 2024)">
+            <button onclick="checkCau1()">Tiếp theo nào</button>
+        </div>
+
+        <div id="screen3" class="screen">
+            <h2>Câu hỏi 2</h2>
+            <p>L.Minh có đẹp trai hông?</p>
+            <button onclick="chuyenMan(4)">đẹp trai  😍</button>
+            <button onclick="chuyenMan(4)" style="background-color: #ffccd5; color: #d63384;">Con Khỉ Xấu</button>
+        </div>
+
+        <div id="screen4" class="screen">
+            <h2>Câu hỏi 3</h2>
+            <p>Nếu con Nì yêu thằng Tài Lộc sẽ ra con gì :v ?</p>
+            <input type="text" placeholder="Nhập câu trả lời...">
+            
+            <button onclick="hienAnhBatNgo()">Xem kết quả 🎁</button>
+        </div>
+
+        <div id="screen5" class="screen">
+            <h2>Kết quả là...</h2>
+            
+            <img src="batngo.jpg" class="img-bat-ngo" alt="Ảnh bất ngờ">
+            
+            <p>Đợi 5 giây nha...</p>
+        </div>
+
+        <div id="screen6" class="screen">
+            <div style="font-size: 50px;">❤️</div>
+            <div class="final-msg">
+                Chúc <b>Quỳnh Như</b> của anh<br>
+                1 Valentine vui vẻ<br>
+                Lâm Minh Yêu em nhiều ❤️
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CẤU HÌNH ĐÁP ÁN ---
+        const D_NGAY = "3" || "03";  
+        const D_THANG = "2";  
+        const D_NAM = "2024"; 
+
+        // Hàm chuyển màn hình cơ bản
+        function chuyenMan(soManHinh) {
+            // Ẩn tất cả màn hình
+            let screens = document.querySelectorAll('.screen');
+            screens.forEach(s => s.classList.remove('active'));
+            
+            // Hiện màn hình mong muốn
+            document.getElementById('screen' + soManHinh).classList.add('active');
+        }
+
+        // Check câu 1
+        function checkCau1() {
+            let n = document.getElementById('ngay').value.trim();
+            let t = document.getElementById('thang').value.trim();
+            let na = document.getElementById('nam').value.trim();
+
+            if (n !== D_NGAY || t !== D_THANG || na !== D_NAM) {
+                alert("Sai ngày rồi! Nhớ lại đi 😤");
+            } else {
+                chuyenMan(3); // Đúng thì qua màn 3
+            }
+        }
+
+        // --- ĐÂY LÀ ĐOẠN CODE LOGIC THAY ĐỔI BẠN CẦN ---
+        function hienAnhBatNgo() {
+            // 1. Chuyển sang màn hình 5 (chứa ảnh batngo.jpg)
+            chuyenMan(5);
+
+            // 2. Đặt bộ đếm thời gian (5000 mili giây = 5 giây)
+            setTimeout(function() {
+                // Sau 5 giây thì tự động chuyển sang màn 6 (Lời chúc)
+                chuyenMan(6);
+            }, 5000);
+        }
+    </script>
+
+</body>
+</html>
