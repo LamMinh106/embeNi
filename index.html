@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Ni của anh</title>
+    <style>
+        /* --- PHẦN TRANG TRÍ (CSS) --- */
+        body {
+            background-color: #ffe6e6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.3);
+            max-width: 90%;
+            width: 400px;
+            position: relative;
+        }
+
+        /* Hiệu ứng trái tim đập */
+        .heart {
+            background-color: #ff4d6d;
+            display: inline-block;
+            height: 50px;
+            margin: 0 10px;
+            position: relative;
+            top: 0;
+            transform: rotate(-45deg);
+            width: 50px;
+            animation: heartbeat 1.2s infinite;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            background-color: #ff4d6d;
+            border-radius: 50%;
+            height: 50px;
+            position: absolute;
+            width: 50px;
+        }
+
+        .heart:before { top: -25px; left: 0; }
+        .heart:after { left: 25px; top: 0; }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1) rotate(-45deg); }
+            50% { transform: scale(1.2) rotate(-45deg); }
+            100% { transform: scale(1) rotate(-45deg); }
+        }
+
+        h1, h2 { color: #d63384; margin-bottom: 20px; }
+        p { font-size: 18px; color: #333; margin-bottom: 20px; }
+
+        /* Input và Button */
+        input[type="text"] {
+            padding: 10px;
+            border: 2px solid #ffccd5;
+            border-radius: 10px;
+            margin: 5px 0;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+            width: 80%;
+        }
+        
+        /* Style riêng cho 4 ô ngày tháng để nằm ngang */
+        .date-inputs {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .date-input {
+            width: 60px !important; /* Ghi đè độ rộng mặc định */
+        }
+
+        button {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #d63384;
+            transform: scale(1.05);
+        }
+
+        /* Ẩn hiện các màn hình */
+        .screen { display: none; }
+        .active { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Lời chúc cuối */
+        .final-msg {
+            font-size: 22px;
+            font-weight: bold;
+            color: #d63384;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="screen1" class="screen active">
+            <div class="heart"></div>
+            <h1>Hello em bé Ni của anh</h1>
+            <p>Anh có một bất ngờ nhỏ dành cho em nè! ❤️</p>
+            <button onclick="nextScreen(1)">Bắt đầu câu hỏi nào</button>
+        </div>
+
+        <div id="screen2" class="screen">
+            <h2>Câu hỏi 1</h2>
+            <p>Mình quen nhau ngày nào zậy bé?</p>
+            <div class="date-inputs">
+                <input type="text" id="day" class="date-input" placeholder="Ngày">
+                <input type="text" id="month" class="date-input" placeholder="Tháng">
+                <input type="text" id="year" class="date-input" placeholder="Năm">
+                <input type="text" id="extra" class="date-input" placeholder="--">
+            </div>
+            <button onclick="checkDateAndNext()">Tiếp theo nào</button>
+        </div>
+
+        <div id="screen3" class="screen">
+            <h2>Câu hỏi 2</h2>
+            <p>L.Minh có đẹp trai hông?</p>
+            <button onclick="nextScreen(3)">Siêu đẹp trai lun </button>
+            <button onclick="nextScreen(3)" style="background-color: #ffccd5; color: #d63384;">Con Khỉ Húi </button>
+        </div>
+
+        <div id="screen4" class="screen">
+            <h2>Câu hỏi 3</h2>
+            <p>Nếu con nì yêu con tài lộc sẽ ra con gì?</p>
+            <input type="text" placeholder="Nhập câu trả lời của em...">
+            <button onclick="nextScreen(4)">Xem kết quả 🎁</button>
+        </div>
+
+        <div id="screen5" class="screen">
+            <div class="heart" style="transform: scale(1.5);"></div>
+            <br><br>
+            <div class="final-msg">
+                Em bé iu của anh<br>
+                Valentine vui vẻ<br>
+                Yêu em nhiều ❤️
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CẤU HÌNH ĐÁP ÁN (Minh sửa ở đây nhé) ---
+        const DAP_AN_NGAY = "03";   // Ngày
+        const DAP_AN_THANG = "10";   // Tháng
+        const DAP_AN_NAM = "2023";  // Năm
+        const DAP_AN_EXTRA = "";    // Ô thứ 4 (nếu ko dùng thì để trống "")
+
+        // Hàm chuyển màn hình thông thường
+        function nextScreen(currentStep) {
+            // Ẩn màn hình hiện tại
+            document.getElementById('screen' + currentStep).classList.remove('active');
+            
+            // Hiện màn hình tiếp theo
+            let nextStep = currentStep + 1;
+            document.getElementById('screen' + nextStep).classList.add('active');
+        }
+
+        
+        function checkDateAndNext() {
+            // Lấy giá trị từ 4 ô
+            let d = document.getElementById('day').value.trim();
+            let m = document.getElementById('month').value.trim();
+            let y = document.getElementById('year').value.trim();
+            let e = document.getElementById('extra').value.trim();
+
+            
+            if (d !== DAP_AN_NGAY || m !== DAP_AN_THANG || y !== DAP_AN_NAM /* || e !== DAP_AN_EXTRA */) {
+                alert("Sai ngày rồi nè! Nhớ kỹ lại xem nào 😤");
+                return; 
+            }
+
+            // Nếu đúng thì chạy tiếp qua màn 3
+            nextScreen(2);
+        }
+    </script>
+
+</body>
+</html>
